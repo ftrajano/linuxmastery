@@ -12,10 +12,10 @@ export default function Hero() {
     <section className="bg-gradient-to-b from-blue-50 to-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-5xl font-bold text-gray-900 mb-6">
-          Master Linux System Commands
+          Master Linux Commands
         </h2>
         <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-          Learn top, grep, journalctl, and systemctl before you jump into orchestration.
+          Learn essential Linux commands from file navigation to system administration before you jump into orchestration.
           Start with an interactive lesson below.
         </p>
         {firstLesson && (
