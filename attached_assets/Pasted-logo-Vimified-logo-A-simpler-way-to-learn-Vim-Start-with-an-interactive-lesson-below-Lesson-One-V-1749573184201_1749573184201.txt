@@ -1,0 +1,86 @@
+logo
+Vimified
+
+logo
+A simpler way to learn Vim.
+Start with an interactive lesson below.
+Lesson One
+Vertical Movement
+In Vim, you can move vertically by using j to go down and k to go up. For this exercise, navigate to the * character and delete it using x.
+
+Notice the number of keystrokes required, we will learn much more efficient ways of navigating in later lessons!
+Attempts
+0
+Get to 10
+Time
+0.0
+Keystrokes
+0
+
+Your Progress
+Total Time
+0.0s
+Get to 300s
+Fastest Time
+-
+Get to 8s
+Fewest Keystrokes
+-
+Get to 100
+Average Time
+-
+Average Keystrokes
+-
+Time
+
+Keystrokes
+
+Why Vim?
+⚡️ Fast.
+Vim treats text as objects, meaning a few keystrokes can manipulate entire strings, blocks of code, and even HTML tags.
+🌍 Everywhere.
+Vim works on every OS and over SSH. Combine Vim's fast keybindings with features of your favorite editor, such as VS Code, by using plugins.
+😄 Fun.
+Vim’s language allows commands to be combined to get the precise action you want. It’s like using combos in a video game, but to edit code.
+
+Learn Vim
+Bite-sized lessons get to the point. Early lessons get you walking in Vim as fast as possible. Later lessons let you go fast, increasing speed and efficiency with advanced concepts.
+Learn Vim with bite-sized lessons
+
+Practice Vim
+Focused exercises make concepts stick, building proficiency and agility, preparing your new Vim powers for real world tasks.
+Practice Vim with focused exercises in an online editor
+
+Master Vim with statistics and achievements rings to buld muscle memory in Vim
+Master Vim by using statistics and achievement rings to target weakspots, get rapid feedback, and reveal progress.
+Use statistics and achievement rings to target weak spots, get rapid feedback, reveal progress, and systematically practice to reach mastery, setting multiple lessons into muscle memory, removing the friction between converting the ideas from your mind into your editor, letting you code at the speed of thought.
+Take a Peek
+
+Chapter 1. Survival Essentials 🔥
+
+Chapter 2. Commands Programmers Love ❤️
+
+Chapter 3. The Magic Language of Vim 🪄
+
+Chapter 4. Going Even Faster 🚀
+
+Chapter 5. Horizontal Speed 🏎️
+
+Chapter 6. Vertical Mastery 🏔️
+
+Chapter 7. Search the Vim Way 🔎
+
+Chapter 8. Vim Tricks to Save Hours ⏱️
+$20
+
+
+Hacker news
+FEATURED ON
+Hacker News
+344
+
+Learn Vim. Practice Vim. Master Vim. Lifetime Access.
+
+Profile picture
+Contact Us
+Read our blog
