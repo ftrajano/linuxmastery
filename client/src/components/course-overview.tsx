@@ -9,35 +9,66 @@ export default function CourseOverview() {
   const chapters = [
     {
       id: 1,
-      title: "Chapter 1. Process Monitoring Essentials 📊",
-      description: "Master top command basics - CPU, memory, and process identification",
+      title: "Chapter 1. File Navigation Essentials 📁",
+      description: "Master basic file and directory operations - ls, cd, pwd, touch, mkdir",
       color: "from-blue-50 to-indigo-50 border-blue-100",
       iconColor: "bg-primary",
-      lessons: lessons?.filter(l => l.command === "top").length || 0
+      lessons: lessons?.filter(l => l.chapter === 1).length || 0,
+      commands: ["ls", "cd", "pwd", "touch", "mkdir"]
     },
     {
       id: 2,
-      title: "Chapter 2. Text Search Mastery 🔍",
-      description: "Advanced grep patterns, regex, and file searching techniques",
-      color: "from-purple-50 to-violet-50 border-purple-100",
-      iconColor: "bg-secondary",
-      lessons: lessons?.filter(l => l.command === "grep").length || 0
+      title: "Chapter 2. File Operations 📄",
+      description: "Copy, move, delete, and search files - cp, mv, rm, find",
+      color: "from-green-50 to-emerald-50 border-green-100",
+      iconColor: "bg-accent",
+      lessons: lessons?.filter(l => l.chapter === 2).length || 0,
+      commands: ["cp", "mv", "rm", "find"]
     },
     {
       id: 3,
-      title: "Chapter 3. Log Analysis Power 📋",
-      description: "journalctl filtering, time ranges, and troubleshooting workflows",
-      color: "from-green-50 to-emerald-50 border-green-100",
-      iconColor: "bg-accent",
-      lessons: lessons?.filter(l => l.command === "journalctl").length || 0
+      title: "Chapter 3. Text Processing 📝",
+      description: "View, search, and analyze text files - cat, less, head, tail, grep, wc",
+      color: "from-purple-50 to-violet-50 border-purple-100",
+      iconColor: "bg-secondary",
+      lessons: lessons?.filter(l => l.chapter === 3).length || 0,
+      commands: ["cat", "less", "head", "tail", "grep", "wc"]
     },
     {
       id: 4,
-      title: "Chapter 4. Service Management Pro ⚙️",
-      description: "systemctl service control, status checking, and automation",
-      color: "from-orange-50 to-amber-50 border-orange-100",
+      title: "Chapter 4. System Monitoring 📊",
+      description: "Monitor processes, memory, and disk usage - top, ps, free, df",
+      color: "from-yellow-50 to-amber-50 border-yellow-100",
+      iconColor: "bg-yellow-600",
+      lessons: lessons?.filter(l => l.chapter === 4).length || 0,
+      commands: ["top", "ps", "free", "df"]
+    },
+    {
+      id: 5,
+      title: "Chapter 5. Process & Service Management ⚙️",
+      description: "Control processes and services - kill, systemctl",
+      color: "from-orange-50 to-red-50 border-orange-100",
       iconColor: "bg-orange-600",
-      lessons: lessons?.filter(l => l.command === "systemctl").length || 0
+      lessons: lessons?.filter(l => l.chapter === 5).length || 0,
+      commands: ["kill", "systemctl"]
+    },
+    {
+      id: 6,
+      title: "Chapter 6. Log Analysis 📋",
+      description: "Analyze system logs and troubleshoot issues - journalctl",
+      color: "from-red-50 to-pink-50 border-red-100",
+      iconColor: "bg-red-600",
+      lessons: lessons?.filter(l => l.chapter === 6).length || 0,
+      commands: ["journalctl"]
+    },
+    {
+      id: 7,
+      title: "Chapter 7. Network & System Info 🌐",
+      description: "Network testing and system information - ping, wget, curl, uname",
+      color: "from-indigo-50 to-purple-50 border-indigo-100",
+      iconColor: "bg-indigo-600",
+      lessons: lessons?.filter(l => l.chapter === 7).length || 0,
+      commands: ["ping", "wget", "curl", "uname"]
     }
   ];
 
@@ -52,11 +83,7 @@ export default function CourseOverview() {
         
         <div className="space-y-6">
           {chapters.map((chapter) => {
-            const firstLessonOfChapter = lessons?.find(l => 
-              l.command === (chapter.id === 1 ? "top" : 
-                           chapter.id === 2 ? "grep" : 
-                           chapter.id === 3 ? "journalctl" : "systemctl")
-            );
+            const firstLessonOfChapter = lessons?.find(l => l.chapter === chapter.id);
             
             return (
               <Link 
@@ -71,7 +98,14 @@ export default function CourseOverview() {
                       </div>
                       <div>
                         <h3 className="text-xl font-semibold text-gray-900">{chapter.title}</h3>
-                        <p className="text-gray-600">{chapter.description}</p>
+                        <p className="text-gray-600 mb-2">{chapter.description}</p>
+                        <div className="flex flex-wrap gap-1">
+                          {chapter.commands.map((cmd) => (
+                            <span key={cmd} className="inline-flex items-center px-2 py-1 rounded text-xs font-mono bg-white bg-opacity-50 text-gray-700">
+                              {cmd}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     </div>
                     <div className="text-sm text-gray-500 font-mono">

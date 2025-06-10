@@ -14,7 +14,7 @@ export const lessons = pgTable("lessons", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description").notNull(),
-  command: text("command").notNull(), // top, grep, journalctl, systemctl
+  command: text("command").notNull(), // ls, cd, pwd, touch, mkdir, cp, mv, rm, find, cat, less, head, tail, grep, wc, top, ps, free, df, kill, systemctl, journalctl, ping, wget, curl, uname
   chapter: integer("chapter").notNull(),
   order: integer("order").notNull(),
   content: jsonb("content").notNull(), // lesson content, scenarios, expected answers

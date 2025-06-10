@@ -41,30 +41,48 @@ export default function ProgressDashboard() {
     }
   ];
 
-  const commands = [
+  const commandGroups = [
     {
-      name: "top",
-      description: "Process monitoring",
+      name: "File Navigation",
+      commands: ["ls", "cd", "pwd", "touch", "mkdir"],
+      percentage: 25,
+      color: "stroke-blue-600"
+    },
+    {
+      name: "File Operations",
+      commands: ["cp", "mv", "rm", "find"],
+      percentage: 50,
+      color: "stroke-green-600"
+    },
+    {
+      name: "Text Processing",
+      commands: ["cat", "less", "head", "tail", "grep", "wc"],
+      percentage: 33,
+      color: "stroke-purple-600"
+    },
+    {
+      name: "System Monitoring",
+      commands: ["top", "ps", "free", "df"],
       percentage: stats?.topProgress || 0,
-      color: "stroke-primary"
+      color: "stroke-yellow-600"
     },
     {
-      name: "grep",
-      description: "Text searching",
-      percentage: stats?.grepProgress || 0,
-      color: "stroke-secondary"
-    },
-    {
-      name: "journalctl",
-      description: "Log analysis",
-      percentage: stats?.journalctlProgress || 0,
-      color: "stroke-accent"
-    },
-    {
-      name: "systemctl",
-      description: "Service management",
+      name: "Process Management",
+      commands: ["kill", "systemctl"],
       percentage: stats?.systemctlProgress || 0,
       color: "stroke-orange-600"
+    },
+    {
+      name: "Log Analysis",
+      commands: ["journalctl"],
+      percentage: stats?.journalctlProgress || 0,
+      color: "stroke-red-600"
+    },
+    {
+      name: "Network & System",
+      commands: ["ping", "wget", "curl", "uname"],
+      percentage: 0,
+      color: "stroke-indigo-600"
     }
   ];
 
@@ -90,14 +108,14 @@ export default function ProgressDashboard() {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">Command Mastery Progress</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {commands.map((command) => {
+          <h3 className="text-xl font-semibold text-gray-900 mb-6">Command Group Mastery</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {commandGroups.map((group) => {
               const circumference = 251.2;
-              const strokeDashoffset = circumference - (command.percentage / 100) * circumference;
+              const strokeDashoffset = circumference - (group.percentage / 100) * circumference;
               
               return (
-                <div key={command.name} className="text-center">
+                <div key={group.name} className="text-center">
                   <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
                     <svg className="w-24 h-24 transform -rotate-90">
                       <circle cx="48" cy="48" r="40" stroke="#E5E7EB" strokeWidth="8" fill="none"/>
@@ -109,15 +127,21 @@ export default function ProgressDashboard() {
                         fill="none" 
                         strokeDasharray={circumference}
                         strokeDashoffset={strokeDashoffset}
-                        className={`transition-all duration-300 ${command.color}`}
+                        className={`transition-all duration-300 ${group.color}`}
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold text-gray-900">{command.percentage}%</span>
+                      <span className="text-lg font-bold text-gray-900">{group.percentage}%</span>
                     </div>
                   </div>
-                  <h4 className="font-mono font-semibold text-gray-900 mb-1">{command.name}</h4>
-                  <p className="text-sm text-gray-600">{command.description}</p>
+                  <h4 className="font-semibold text-gray-900 mb-2">{group.name}</h4>
+                  <div className="flex flex-wrap justify-center gap-1 mb-2">
+                    {group.commands.map((cmd) => (
+                      <span key={cmd} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-gray-100 text-gray-600">
+                        {cmd}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               );
             })}

@@ -1,0 +1,421 @@
+# 50 Comandos Básicos de Linux
+
+## Gerenciamento de arquivos e diretórios
+
+### ls 
+Visualiza todos os conteúdos contidos em um diretório. Ao digitar somente ls, é possível ver apenas os arquivos que fazem parte do diretório atual.
+
+**Variações:**
+- `ls -R`: para visualizar conteúdos dos subdiretórios
+- `ls -l`: exibe uma lista detalhada
+- `ls -a`: mostra os arquivos ocultos
+
+**Sintaxe:** `ls [opções] [caminho]`
+
+### cd
+Navega entre diretórios e os modifica.
+
+**Atalhos:**
+- `cd..`: para subir um diretório acima
+- `cd ~`: para acessar a pasta do usuário logado
+- `cd –`: para retornar para diretórios anteriores
+
+**Sintaxe:** `cd/home/usuario/documentos`
+
+### pwd
+Revela o caminho completo do diretório atual.
+
+**Opções:**
+- `-L`: imprime o conteúdo da variável do ambiente
+- `-P`: mostra o caminho real do diretório atual sem links simbólicos
+
+**Sintaxe:** `pwd`
+
+### mkdir 
+Cria um ou mais diretórios abaixo do diretório local.
+
+**Opções:**
+- `-p`: cria um diretório para pastas já existentes
+- `-m`: configura a permissão do diretório criado
+
+**Sintaxe:** `mkdir novo_diretorio`
+
+### rmdir 
+Exclui permanentemente um diretório vazio.
+
+**Opções:**
+- `-p`: apaga um diretório e seus subdiretórios
+- `--ignore-fail-on-non-empty`: ignora o erro caso o diretório não esteja vazio
+
+**Sintaxe:** `rmdir [opções]`
+
+### rm 
+Apaga permanentemente todos os arquivos contidos em um diretório.
+
+**Opções:**
+- `-i`: solicita confirmação antes de excluir
+- `-f`: exclui arquivos sem solicitar confirmação
+- `-r`: exclui arquivos e diretórios recursivamente
+
+**Sintaxe:** `rm nome_do_arquivo`
+
+### cp
+Copia arquivos e diretórios.
+
+**Sintaxe:** `cp arquivo.txt /diretorio_destino`
+
+### mv 
+Move ou renomeia arquivos e diretórios.
+
+**Sintaxe:** `mv arquivo.txt nova_pasta/` ou `mv antigo.txt novo.txt`
+
+### touch 
+Cria um novo arquivo vazio ou gera e modifica um registro de data e hora.
+
+**Sintaxe:** `touch novo.txt`
+
+### find 
+Encontra arquivos e diretórios de acordo com critérios específicos.
+
+**Sintaxe:** `find [diretório] [opção] [ação]`
+
+### stat
+Visualiza informações detalhadas sobre os arquivos.
+
+**Sintaxe:** `stat arquivo.txt`
+
+### locate
+Localiza arquivos de forma rápida (necessita de banco de dados atualizado).
+
+**Sintaxe:** `locate arquivo.txt`
+
+## Leitura e edição de arquivos
+
+### cat 
+Visualiza, cria e relaciona conteúdos de arquivos.
+
+**Sintaxe:** `cat texto.txt`
+
+### less 
+Exibe grandes arquivos página por página.
+
+**Sintaxe:** `less arquivo.txt`
+
+### head 
+Visualiza as 10 primeiras linhas de um arquivo.
+
+**Sintaxe:** `head [opção] [arquivo]`
+**Exemplo:** `head -n20 arquivo.txt` (para 20 linhas)
+
+### tail
+Mostra as 10 últimas linhas de um arquivo.
+
+**Sintaxe:** `tail log.txt`
+**Exemplos:** 
+- `tail -n 5 log.txt` (para 5 linhas)
+- `tail -f log.txt` (visualização em tempo real)
+
+### nano 
+Editor de textos para editar e gerenciar arquivos.
+
+**Sintaxe:** `nano texto.txt`
+
+### echo
+Exibe texto no terminal, adiciona ou evita nova linha.
+
+**Opções:**
+- `-n`: não adiciona nova linha
+- `-e`: ativa interpretação de sequências de escape
+- `-E`: desativa interpretação dos escapes
+
+**Sintaxe:** `echo [opção] [argumento]`
+
+### wc
+Conta palavras, linhas, caracteres e indica comprimento da maior linha.
+
+**Opções:**
+- `-w`: conta palavras
+- `-c`: conta caracteres
+- `-l`: mostra número de linhas
+- `-m`: caracteres Unicode
+- `-L`: comprimento da maior linha
+
+**Sintaxe:** `wc [opção] texto.txt`
+
+### cut 
+Extrai caracteres, bytes e seções de cada linha de um arquivo.
+
+**Opções:**
+- `-b`: seleciona apenas bytes
+- `-c`: seleciona apenas caracteres
+- `-f`: seleciona campos
+
+**Sintaxe:** `cut [opção] arquivo.txt`
+
+### grep
+Encontra uma palavra em um determinado conteúdo.
+
+**Sintaxe:** `grep [termo] arquivo.txt`
+
+### diff
+Compara o conteúdo de dois arquivos linha por linha.
+
+**Opções:**
+- `-q`: exibe apenas arquivos diferentes
+- `-i`: ignora maiúsculas e minúsculas
+- `-b`: ignora espaços em branco
+
+**Sintaxe:** `diff arquivo1.txt arquivo2.txt`
+
+### tar 
+Extrai e comprime arquivos no formato tar.
+
+**Opções:**
+- `-x`: extrair arquivo
+- `-t`: listar conteúdo
+- `-u`: arquivar e adicionar
+
+**Sintaxe:** 
+- Comprimir: `tar -cvf arquivo_comprimido.tar.gz arquivo.txt`
+- Descomprimir: `tar -xzvf`
+
+### zip e unzip
+Compacta e descompacta arquivos ZIP.
+
+**Sintaxe:** 
+- `zip arquivo.zip arquivo1.txt arquivo2.txt`
+- `unzip [opção] nome_do_arquivo.zip`
+
+## Gerenciamento de processos
+
+### kill 
+Encerra processos pelo PID.
+
+**Opções de tempo:**
+- `s`: segundos
+- `m`: minutos
+- `h`: horas
+- `d`: dias
+- `w`: semanas
+- `M`: meses
+- `y`: anos
+
+**Sintaxe:** `kill pid`
+
+### reboot
+Reinicia o computador imediatamente.
+
+**Sintaxe:** `reboot`
+
+### uptime
+Mostra tempo de execução do sistema, carga da CPU e usuários logados.
+
+**Sintaxe:** `uptime`
+
+## Gerenciamento de pacotes
+
+### apt-get
+Gerencia, atualiza, pesquisa, instala e desinstala pacotes (Debian/Ubuntu).
+
+**Principais opções:**
+- `sudo apt-get update`: atualiza lista de pacotes
+- `sudo apt-get upgrade`: atualiza todos os pacotes
+- `sudo apt-get install pacote1 pacote2`: instala pacotes
+- `sudo apt-get remove`: remove pacotes
+
+### dpkg-i 
+Instala pacotes Debian (.deb) já baixados.
+
+**Sintaxe:** `dpkg-i nome_do_pacote.deb`
+
+## Rede
+
+### ping
+Verifica conectividade da rede e resolve problemas de conexão.
+
+**Sintaxe:** `ping [opção] [hostname_ou_IP]`
+**Exemplo:** `ping google.com`
+
+### curl 
+Verifica conectividade URL e transfere dados para servidores.
+
+**Protocolos suportados:** HTTP/HTTPS, FTP/FTPS, SMTP/SMTPS, POP3/POP3S, SMB/SMBS, LDAP/LDAPS, SFTP
+
+**Opções:**
+- `-O`: salva arquivo com nome original
+- `-o`: especifica nome diferente
+
+**Sintaxe:** `curl [options] [URL]`
+
+### wget 
+Faz download de arquivos HTTP, HTTPS e FTP.
+
+**Opções:**
+- `-b`: download em segundo plano
+- `-O`: salva com nome diferente
+
+**Sintaxe:** `wget https://exemplo.com/arquivo.zip`
+
+### ip address
+Exibe informações das interfaces de rede.
+
+**Sintaxe:** `ip a`
+
+## Informações do sistema
+
+### uname
+Mostra informações detalhadas sobre o sistema.
+
+**Opções:**
+- `-a`: todos os dados do sistema
+- `-r`: versão do Linux
+- `-n`: hostname do sistema
+
+**Sintaxe:** `uname [opção]`
+
+### top
+Exibe processos em execução e uso da CPU (equivalente ao Gerenciador de Tarefas).
+
+**Sintaxe:** `top`
+
+### ps 
+Exibe dados sobre processos em execução.
+
+**Opções:**
+- `-A` ou `-e`: todos os processos
+- `-u nome_usuário`: processos de um usuário
+- `-T`: processos da sessão atual
+
+**Sintaxe:** `ps [opções]`
+
+### free
+Verifica quantidade de memória total, em uso e disponível.
+
+**Opções:**
+- `-b`: bytes
+- `-g`: gigabytes
+- `-k`: quilobytes
+- `-m`: megabytes
+- `--tera`: terabytes
+- `-h`: formato legível
+
+**Sintaxe:** `free [opção]`
+
+### whoami 
+Mostra o nome do usuário atual.
+
+**Sintaxe:** `whoami`
+
+### df
+Visualiza espaço em disco usado e disponível.
+
+**Opções:**
+- `-h`: formato legível
+- `-m`: megabytes
+- `-k`: quilobytes
+- `-t`: tipo de sistema de arquivos
+
+**Sintaxe:** `df [opção]`
+
+### du
+Verifica espaço ocupado por arquivo ou diretório.
+
+**Opções:**
+- `-s`: tamanho total de pasta
+- `-h`: formato legível
+- `-m`: megabytes
+- `-k`: quilobytes
+
+**Sintaxe:** `du [opção] [diretório]`
+
+### exit 
+Sai de uma sessão shell.
+
+**Sintaxe:** `exit`
+
+### man
+Acessa manual completo para comandos do terminal.
+
+**Opções:**
+- `-a`: todas as páginas do termo
+- `-k`: busca palavra específica
+
+**Sintaxe:** `man [nome_do_comando]`
+
+### history
+Apresenta lista dos últimos 500 comandos executados.
+
+**Opções:**
+- `-c`: limpa histórico
+- `-d offset`: exclui histórico em posição específica
+- `-a`: adiciona linhas ao histórico
+
+**Sintaxe:** `history [opção]`
+
+## Permissões e usuários 
+
+### chmod 
+Altera permissões de arquivos.
+
+**Permissões básicas:**
+- `r` (read): leitura
+- `w` (write): escrita
+- `x` (execute): execução
+
+**Opções:**
+- `-c`: informa quando alteração foi realizada
+- `-f`: suprime mensagens de erro
+- `-v`: detalhes do que está sendo feito
+
+**Sintaxe:** `chmod [opção] [permissão] [nome_do_arquivo]`
+
+### chown 
+Muda o proprietário de arquivos.
+
+**Sintaxe:** `chown [opção] proprietário[:grupo] arquivo(s)`
+
+### adduser
+Cria novo usuário ou adiciona usuário a grupo.
+
+**Sintaxe:** `sudo adduser nome_usuário`
+
+### su
+Altera ID do usuário atual para superusuário.
+
+**Opções:**
+- `-c`: executa comandos com privilégios especificados
+- `-s`: delimita ambiente shell
+- `-h`: mostra opções de comando
+- `-l`: fornece ambiente similar ao login
+
+**Sintaxe:** `su [opções] [nome_usuário]`
+
+### sudo 
+Executa comandos com privilégios de superusuário.
+
+**Opções:**
+- `-k`: invalida arquivo de registro
+- `-h`: imprime ajuda
+
+**Sintaxe:** `sudo [comando]`
+
+### hostname
+Identifica ou altera nome do host do sistema.
+
+**Opções:**
+- `-a`: mostra alias do hostname
+- `-A`: nome do domínio qualificado
+- `-i`: endereço IP do dispositivo
+
+**Sintaxe:** `hostname [opção]`
+
+### useradd
+Cria nova conta de usuário.
+
+**Opções:**
+- `-d`: diretório inicial do usuário
+- `-g`: grupo primário
+- `-G`: grupos adicionais
+- `-e`: data de expiração da conta
+
+**Sintaxe:** `useradd [opção] nome_de_usuário`
