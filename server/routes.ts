@@ -126,6 +126,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Simple login endpoint
+  app.post("/api/login", async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: "Username and password required" });
+      }
+      
+      const user = await storage.getUserByUsername(username);
+      
+      if (!user || user.password !== password) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+      
+      res.json({ 
+        id: user.id, 
+        username: user.username, 
+        email: user.email 
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Login failed" });
+    }
+  });
+
   // Validate command for a lesson
   app.post("/api/lessons/:lessonId/validate", async (req, res) => {
     try {

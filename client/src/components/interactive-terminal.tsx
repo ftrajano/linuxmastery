@@ -4,12 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { TerminalSimulator } from "@/lib/terminal-simulator";
 import type { Lesson } from "@shared/schema";
 
 interface InteractiveTerminalProps {
   lesson: Lesson;
   showStats?: boolean;
 }
+
+type TerminalMode = "lesson" | "explore";
 
 export default function InteractiveTerminal({ lesson, showStats = false }: InteractiveTerminalProps) {
   const [command, setCommand] = useState("");
@@ -19,7 +22,11 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
   const [commands, setCommands] = useState(0);
   const [feedback, setFeedback] = useState("");
   const [isCompleted, setIsCompleted] = useState(false);
+  const [mode, setMode] = useState<TerminalMode>("lesson");
+  const [terminalHistory, setTerminalHistory] = useState<Array<{command: string, output: string}>>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
+  const terminalRef = useRef<TerminalSimulator>(new TerminalSimulator());
   const { toast } = useToast();
 
   useEffect(() => {
@@ -67,43 +74,121 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
     e.preventDefault();
     if (!command.trim()) return;
 
-    setAttempts(prev => prev + 1);
+    const trimmedCommand = command.trim();
     setCommands(prev => prev + 1);
 
-    validateCommand.mutate({
-      command: command.trim(),
-      lessonId: lesson.id
-    });
+    if (mode === "lesson") {
+      // Modo lição: validação tradicional
+      setAttempts(prev => prev + 1);
+      validateCommand.mutate({
+        command: trimmedCommand,
+        lessonId: lesson.id
+      });
+    } else {
+      // Modo exploração: usar simulador
+      const result = terminalRef.current.executeCommand(trimmedCommand);
+      setTerminalHistory(prev => [...prev, {
+        command: trimmedCommand,
+        output: result.output
+      }]);
+    }
 
     setCommand("");
+    setHistoryIndex(-1);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (mode === "explore") {
+      const history = terminalRef.current.getHistory();
+      
+      if (e.key === "ArrowUp") {
+        e.preventDefault();
+        if (history.length > 0) {
+          const newIndex = historyIndex + 1;
+          if (newIndex < history.length) {
+            setHistoryIndex(newIndex);
+            setCommand(history[history.length - 1 - newIndex]);
+          }
+        }
+      } else if (e.key === "ArrowDown") {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          const newIndex = historyIndex - 1;
+          setHistoryIndex(newIndex);
+          setCommand(history[history.length - 1 - newIndex]);
+        } else if (historyIndex === 0) {
+          setHistoryIndex(-1);
+          setCommand("");
+        }
+      }
+    }
   };
 
   const content = lesson.content as any;
 
   return (
     <div>
+      {/* Mode Switcher */}
+      <div className="flex gap-2 mb-4">
+        <Button
+          variant={mode === "lesson" ? "default" : "outline"}
+          size="sm"
+          onClick={() => setMode("lesson")}
+        >
+          Lesson Mode
+        </Button>
+        <Button
+          variant={mode === "explore" ? "default" : "outline"}
+          size="sm"
+          onClick={() => setMode("explore")}
+        >
+          Explore Mode
+        </Button>
+      </div>
+
       {showStats && (
         <div className="flex justify-between items-center mb-6">
-          <h3 className="text-2xl font-semibold text-gray-900">Lesson One</h3>
+          <h3 className="text-2xl font-semibold text-gray-900">Lesson {lesson.id}</h3>
           <div className="flex space-x-4 text-sm text-gray-600">
-            <span>Attempts: <span className="font-mono font-medium">{attempts}</span></span>
+            {mode === "lesson" && <span>Attempts: <span className="font-mono font-medium">{attempts}</span></span>}
             <span>Time: <span className="font-mono font-medium">{currentTime.toFixed(1)}s</span></span>
             <span>Commands: <span className="font-mono font-medium">{commands}</span></span>
           </div>
         </div>
       )}
       
-      <div className="text-left mb-6">
-        <h4 className="text-lg font-medium text-gray-900 mb-2">{lesson.title}</h4>
-        <p className="text-gray-600 mb-4">{content.scenario}</p>
-      </div>
+      {mode === "lesson" && (
+        <div className="text-left mb-6">
+          <h4 className="text-lg font-medium text-gray-900 mb-2">{lesson.title}</h4>
+          <p className="text-gray-600 mb-4">{content.scenario}</p>
+        </div>
+      )}
 
-      <div className="bg-gray-900 rounded-lg p-6 font-mono text-sm">
-        <div className="text-green-400 mb-2">user@sysadmin:~$</div>
+      <div className="bg-gray-900 rounded-lg p-6 font-mono text-sm max-h-96 overflow-y-auto">
+        {mode === "lesson" && (
+          <div className="text-green-400 mb-2">user@sysadmin:~$</div>
+        )}
         
-        {content.mockOutput && (
+        {mode === "lesson" && content.mockOutput && (
           <div className="text-white mb-4 whitespace-pre-line">
             {content.mockOutput}
+          </div>
+        )}
+
+        {mode === "explore" && (
+          <div className="mb-4">
+            {terminalHistory.map((entry, index) => (
+              <div key={index} className="mb-2">
+                <div className="text-green-400">
+                  user@sysadmin:~$ <span className="text-white">{entry.command}</span>
+                </div>
+                {entry.output && (
+                  <div className="text-white whitespace-pre-line ml-0 mt-1">
+                    {entry.output}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         )}
         
@@ -114,14 +199,15 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
             type="text"
             value={command}
             onChange={(e) => setCommand(e.target.value)}
+            onKeyDown={handleKeyDown}
             className="bg-transparent text-white flex-1 outline-none font-mono border-none focus:ring-0 p-0"
-            placeholder="Type your command here..."
-            disabled={isCompleted}
+            placeholder={mode === "lesson" ? "Type the correct command..." : "Type any Linux command..."}
+            disabled={mode === "lesson" && isCompleted}
           />
           <div className="w-2 h-4 bg-white animate-pulse ml-1 terminal-cursor"></div>
         </form>
         
-        {feedback && (
+        {mode === "lesson" && feedback && (
           <div className={`mt-4 p-3 rounded ${
             isCompleted ? 'bg-green-900 text-green-200' : 'bg-red-900 text-red-200'
           }`}>
@@ -130,19 +216,30 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
         )}
       </div>
 
-      {content.hint && !isCompleted && (
+      {mode === "lesson" && content.hint && !isCompleted && (
         <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <p className="text-sm text-blue-800">
             <strong>Hint:</strong> {content.hint}
           </p>
         </div>
       )}
+
+      {mode === "explore" && (
+        <div className="mt-4 p-4 bg-blue-50 rounded-lg">
+          <p className="text-sm text-blue-800">
+            <strong>Explore Mode:</strong> Try any Linux command! Use arrow keys to navigate command history. Type 'help' to see available commands.
+          </p>
+        </div>
+      )}
       
-      {isCompleted && (
-        <div className="mt-6 text-center">
-          <Button className="bg-green-600 hover:bg-green-700">
-            Next Lesson
-          </Button>
+      {mode === "lesson" && isCompleted && (
+        <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
+          <div className="text-center">
+            <div className="text-green-800 font-medium mb-2">🎉 Lesson Complete!</div>
+            <p className="text-sm text-green-700 mb-4">
+              Great job! You've mastered the <code className="bg-green-100 px-1 rounded">{lesson.command}</code> command.
+            </p>
+          </div>
         </div>
       )}
     </div>

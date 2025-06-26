@@ -50,6 +50,7 @@ export class MemStorage implements IStorage {
     this.currentStatsId = 1;
     
     this.initializeLessons();
+    this.initializeUsers();
   }
 
   private initializeLessons() {
@@ -492,6 +493,19 @@ Swap:          2.0G          0B        2.0G`,
 
     sampleLessons.forEach(lesson => {
       this.createLesson(lesson);
+    });
+  }
+
+  private initializeUsers() {
+    // Create default users that persist in memory
+    const defaultUsers = [
+      { username: "admin", email: "admin@test.com", password: "123456" },
+      { username: "demo", email: "demo@test.com", password: "demo123" },
+      { username: "user", email: "user@test.com", password: "password" }
+    ];
+
+    defaultUsers.forEach(userData => {
+      this.createUser(userData);
     });
   }
 
