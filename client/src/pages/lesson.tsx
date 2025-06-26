@@ -12,40 +12,44 @@ import type { Lesson } from "@shared/schema";
 const allLessons = [
   // Chapter 1
   { id: 1, title: "List Directory Contents", command: "ls", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
-  { id: 2, title: "Navigate Directories", command: "cd", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
-  { id: 3, title: "Show Current Directory", command: "pwd", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
-  { id: 4, title: "Create Files", command: "touch", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
-  { id: 5, title: "Create Directories", command: "mkdir", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 2, title: "List with Details", command: "ls -l", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 3, title: "Show Hidden Files", command: "ls -a", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 4, title: "Human-Readable Sizes", command: "ls -lh", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 5, title: "Complete Directory Listing", command: "ls -la", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 6, title: "Navigate Directories", command: "cd", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 7, title: "Show Current Directory", command: "pwd", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 8, title: "Create Files", command: "touch", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
+  { id: 9, title: "Create Directories", command: "mkdir", chapterTitle: "Chapter 1. File Navigation Essentials 🔥" },
   // Chapter 2
-  { id: 6, title: "Copy Files", command: "cp", chapterTitle: "Chapter 2. File Operations ❤️" },
-  { id: 7, title: "Move and Rename", command: "mv", chapterTitle: "Chapter 2. File Operations ❤️" },
-  { id: 8, title: "Remove Files", command: "rm", chapterTitle: "Chapter 2. File Operations ❤️" },
-  { id: 9, title: "Find Files", command: "find", chapterTitle: "Chapter 2. File Operations ❤️" },
+  { id: 10, title: "Copy Files", command: "cp", chapterTitle: "Chapter 2. File Operations ❤️" },
+  { id: 11, title: "Move and Rename", command: "mv", chapterTitle: "Chapter 2. File Operations ❤️" },
+  { id: 12, title: "Remove Files", command: "rm", chapterTitle: "Chapter 2. File Operations ❤️" },
+  { id: 13, title: "Find Files", command: "find", chapterTitle: "Chapter 2. File Operations ❤️" },
   // Chapter 3
-  { id: 10, title: "View File Contents", command: "cat", chapterTitle: "Chapter 3. Text Processing 🪄" },
-  { id: 11, title: "Page Through Files", command: "less", chapterTitle: "Chapter 3. Text Processing 🪄" },
-  { id: 12, title: "Show File Beginning", command: "head", chapterTitle: "Chapter 3. Text Processing 🪄" },
-  { id: 13, title: "Show File End", command: "tail", chapterTitle: "Chapter 3. Text Processing 🪄" },
-  { id: 14, title: "Search Text", command: "grep", chapterTitle: "Chapter 3. Text Processing 🪄" },
-  { id: 15, title: "Count Words", command: "wc", chapterTitle: "Chapter 3. Text Processing 🪄" },
+  { id: 14, title: "View File Contents", command: "cat", chapterTitle: "Chapter 3. Text Processing 🪄" },
+  { id: 15, title: "Page Through Files", command: "less", chapterTitle: "Chapter 3. Text Processing 🪄" },
+  { id: 16, title: "Show File Beginning", command: "head", chapterTitle: "Chapter 3. Text Processing 🪄" },
+  { id: 17, title: "Show File End", command: "tail", chapterTitle: "Chapter 3. Text Processing 🪄" },
+  { id: 18, title: "Search Text", command: "grep", chapterTitle: "Chapter 3. Text Processing 🪄" },
+  { id: 19, title: "Count Words", command: "wc", chapterTitle: "Chapter 3. Text Processing 🪄" },
   // Chapter 4
-  { id: 16, title: "Monitor Processes", command: "top", chapterTitle: "Chapter 4. System Monitoring 🚀" },
-  { id: 17, title: "List Processes", command: "ps", chapterTitle: "Chapter 4. System Monitoring 🚀" },
-  { id: 18, title: "Check Memory Usage", command: "free", chapterTitle: "Chapter 4. System Monitoring 🚀" },
-  { id: 19, title: "Check Disk Space", command: "df", chapterTitle: "Chapter 4. System Monitoring 🚀" },
+  { id: 20, title: "Monitor Processes", command: "top", chapterTitle: "Chapter 4. System Monitoring 🚀" },
+  { id: 21, title: "List Processes", command: "ps", chapterTitle: "Chapter 4. System Monitoring 🚀" },
+  { id: 22, title: "Check Memory Usage", command: "free", chapterTitle: "Chapter 4. System Monitoring 🚀" },
+  { id: 23, title: "Check Disk Space", command: "df", chapterTitle: "Chapter 4. System Monitoring 🚀" },
   // Chapter 5
-  { id: 20, title: "Terminate Processes", command: "kill", chapterTitle: "Chapter 5. Process Management 🏎️" },
-  { id: 21, title: "Service Status", command: "systemctl", chapterTitle: "Chapter 5. Process Management 🏎️" },
-  { id: 22, title: "Restart Services", command: "systemctl", chapterTitle: "Chapter 5. Process Management 🏎️" },
+  { id: 24, title: "Terminate Processes", command: "kill", chapterTitle: "Chapter 5. Process Management 🏎️" },
+  { id: 25, title: "Service Status", command: "systemctl", chapterTitle: "Chapter 5. Process Management 🏎️" },
+  { id: 26, title: "Restart Services", command: "systemctl", chapterTitle: "Chapter 5. Process Management 🏎️" },
   // Chapter 6
-  { id: 23, title: "View System Logs", command: "journalctl", chapterTitle: "Chapter 6. Log Analysis 🏔️" },
-  { id: 24, title: "Filter Service Logs", command: "journalctl", chapterTitle: "Chapter 6. Log Analysis 🏔️" },
-  { id: 25, title: "Follow Live Logs", command: "journalctl", chapterTitle: "Chapter 6. Log Analysis 🏔️" },
+  { id: 27, title: "View System Logs", command: "journalctl", chapterTitle: "Chapter 6. Log Analysis 🏔️" },
+  { id: 28, title: "Filter Service Logs", command: "journalctl", chapterTitle: "Chapter 6. Log Analysis 🏔️" },
+  { id: 29, title: "Follow Live Logs", command: "journalctl", chapterTitle: "Chapter 6. Log Analysis 🏔️" },
   // Chapter 7
-  { id: 26, title: "Test Network Connectivity", command: "ping", chapterTitle: "Chapter 7. Network & System Info 🔎" },
-  { id: 27, title: "Download Files", command: "wget", chapterTitle: "Chapter 7. Network & System Info 🔎" },
-  { id: 28, title: "Transfer Data", command: "curl", chapterTitle: "Chapter 7. Network & System Info 🔎" },
-  { id: 29, title: "Show System Information", command: "uname", chapterTitle: "Chapter 7. Network & System Info 🔎" }
+  { id: 30, title: "Test Network Connectivity", command: "ping", chapterTitle: "Chapter 7. Network & System Info 🔎" },
+  { id: 31, title: "Download Files", command: "wget", chapterTitle: "Chapter 7. Network & System Info 🔎" },
+  { id: 32, title: "Transfer Data", command: "curl", chapterTitle: "Chapter 7. Network & System Info 🔎" },
+  { id: 33, title: "Show System Information", command: "uname", chapterTitle: "Chapter 7. Network & System Info 🔎" }
 ];
 
 export default function Lesson() {

@@ -26,11 +26,15 @@ const chapters: Chapter[] = [
     description: "Learn to navigate the filesystem",
     icon: "📁",
     lessons: [
-      { id: 1, title: "List Directory Contents", description: "Learn to view files and directories using ls command", command: "ls", completed: false },
-      { id: 2, title: "Navigate Directories", description: "Change directories and navigate the filesystem", command: "cd", completed: false },
-      { id: 3, title: "Show Current Directory", description: "Display the full path of your current directory", command: "pwd", completed: false },
-      { id: 4, title: "Create Files", description: "Create new empty files quickly", command: "touch", completed: false },
-      { id: 5, title: "Create Directories", description: "Make new directories in the filesystem", command: "mkdir", completed: false }
+      { id: 1, title: "List Directory Contents", description: "Learn basic file and directory listing with ls", command: "ls", completed: false },
+      { id: 2, title: "List with Details", description: "View detailed file information with permissions and sizes", command: "ls -l", completed: false },
+      { id: 3, title: "Show Hidden Files", description: "Display hidden files and directories that start with .", command: "ls -a", completed: false },
+      { id: 4, title: "Human-Readable Sizes", description: "Show file sizes in KB, MB, GB format for easier reading", command: "ls -lh", completed: false },
+      { id: 5, title: "Complete Directory Listing", description: "Combine detailed view with hidden files for full directory overview", command: "ls -la", completed: false },
+      { id: 6, title: "Navigate Directories", description: "Change directories and navigate the filesystem", command: "cd", completed: false },
+      { id: 7, title: "Show Current Directory", description: "Display the full path of your current directory", command: "pwd", completed: false },
+      { id: 8, title: "Create Files", description: "Create new empty files quickly", command: "touch", completed: false },
+      { id: 9, title: "Create Directories", description: "Make new directories in the filesystem", command: "mkdir", completed: false }
     ]
   },
   {
@@ -39,10 +43,10 @@ const chapters: Chapter[] = [
     description: "Master file manipulation",
     icon: "📄",
     lessons: [
-      { id: 6, title: "Copy Files", description: "Duplicate files and directories", command: "cp", completed: false },
-      { id: 7, title: "Move and Rename", description: "Move files between directories or rename them", command: "mv", completed: false },
-      { id: 8, title: "Remove Files", description: "Delete files and directories safely", command: "rm", completed: false },
-      { id: 9, title: "Find Files", description: "Search for files and directories by various criteria", command: "find", completed: false }
+      { id: 10, title: "Copy Files", description: "Duplicate files and directories", command: "cp", completed: false },
+      { id: 11, title: "Move and Rename", description: "Move files between directories or rename them", command: "mv", completed: false },
+      { id: 12, title: "Remove Files", description: "Delete files and directories safely", command: "rm", completed: false },
+      { id: 13, title: "Find Files", description: "Search for files and directories by various criteria", command: "find", completed: false }
     ]
   },
   {
@@ -51,12 +55,12 @@ const chapters: Chapter[] = [
     description: "Process text files efficiently",
     icon: "📝",
     lessons: [
-      { id: 10, title: "View File Contents", description: "Display the entire contents of text files", command: "cat", completed: false },
-      { id: 11, title: "Page Through Files", description: "View large files one page at a time", command: "less", completed: false },
-      { id: 12, title: "Show File Beginning", description: "Display the first lines of a file", command: "head", completed: false },
-      { id: 13, title: "Show File End", description: "Display the last lines of a file", command: "tail", completed: false },
-      { id: 14, title: "Search Text", description: "Find specific patterns in files and output", command: "grep", completed: false },
-      { id: 15, title: "Count Words", description: "Count lines, words, and characters in files", command: "wc", completed: false }
+      { id: 14, title: "View File Contents", description: "Display the entire contents of text files", command: "cat", completed: false },
+      { id: 15, title: "Page Through Files", description: "View large files one page at a time", command: "less", completed: false },
+      { id: 16, title: "Show File Beginning", description: "Display the first lines of a file", command: "head", completed: false },
+      { id: 17, title: "Show File End", description: "Display the last lines of a file", command: "tail", completed: false },
+      { id: 18, title: "Search Text", description: "Find specific patterns in files and output", command: "grep", completed: false },
+      { id: 19, title: "Count Words", description: "Count lines, words, and characters in files", command: "wc", completed: false }
     ]
   },
   {
@@ -65,10 +69,10 @@ const chapters: Chapter[] = [
     description: "Monitor system resources",
     icon: "📊",
     lessons: [
-      { id: 16, title: "Monitor Processes", description: "View running processes and system resource usage", command: "top", completed: false },
-      { id: 17, title: "List Processes", description: "Show detailed information about running processes", command: "ps", completed: false },
-      { id: 18, title: "Check Memory Usage", description: "Display memory usage information", command: "free", completed: false },
-      { id: 19, title: "Check Disk Space", description: "Display filesystem disk space usage", command: "df", completed: false }
+      { id: 20, title: "Monitor Processes", description: "View running processes and system resource usage", command: "top", completed: false },
+      { id: 21, title: "List Processes", description: "Show detailed information about running processes", command: "ps", completed: false },
+      { id: 22, title: "Check Memory Usage", description: "Display memory usage information", command: "free", completed: false },
+      { id: 23, title: "Check Disk Space", description: "Display filesystem disk space usage", command: "df", completed: false }
     ]
   },
   {
@@ -77,9 +81,9 @@ const chapters: Chapter[] = [
     description: "Control processes and services",
     icon: "⚙️",
     lessons: [
-      { id: 20, title: "Terminate Processes", description: "Stop processes by their process ID", command: "kill", completed: false },
-      { id: 21, title: "Service Status", description: "Check and control system services", command: "systemctl", completed: false },
-      { id: 22, title: "Restart Services", description: "Restart system services", command: "systemctl", completed: false }
+      { id: 24, title: "Terminate Processes", description: "Stop processes by their process ID", command: "kill", completed: false },
+      { id: 25, title: "Service Status", description: "Check and control system services", command: "systemctl", completed: false },
+      { id: 26, title: "Restart Services", description: "Restart system services", command: "systemctl", completed: false }
     ]
   },
   {
@@ -88,9 +92,9 @@ const chapters: Chapter[] = [
     description: "Analyze system logs",
     icon: "📋",
     lessons: [
-      { id: 23, title: "View System Logs", description: "Query and analyze system logs using journalctl", command: "journalctl", completed: false },
-      { id: 24, title: "Filter Service Logs", description: "View logs for specific services", command: "journalctl", completed: false },
-      { id: 25, title: "Follow Live Logs", description: "Monitor logs in real-time", command: "journalctl", completed: false }
+      { id: 27, title: "View System Logs", description: "Query and analyze system logs using journalctl", command: "journalctl", completed: false },
+      { id: 28, title: "Filter Service Logs", description: "View logs for specific services", command: "journalctl", completed: false },
+      { id: 29, title: "Follow Live Logs", description: "Monitor logs in real-time", command: "journalctl", completed: false }
     ]
   },
   {
@@ -99,10 +103,10 @@ const chapters: Chapter[] = [
     description: "Network tools and system information",
     icon: "🌐",
     lessons: [
-      { id: 26, title: "Test Network Connectivity", description: "Check if a remote host is reachable", command: "ping", completed: false },
-      { id: 27, title: "Download Files", description: "Download files from the internet", command: "wget", completed: false },
-      { id: 28, title: "Transfer Data", description: "Make HTTP requests and transfer data", command: "curl", completed: false },
-      { id: 29, title: "Show System Information", description: "Display system and kernel information", command: "uname", completed: false }
+      { id: 30, title: "Test Network Connectivity", description: "Check if a remote host is reachable", command: "ping", completed: false },
+      { id: 31, title: "Download Files", description: "Download files from the internet", command: "wget", completed: false },
+      { id: 32, title: "Transfer Data", description: "Make HTTP requests and transfer data", command: "curl", completed: false },
+      { id: 33, title: "Show System Information", description: "Display system and kernel information", command: "uname", completed: false }
     ]
   }
 ];
