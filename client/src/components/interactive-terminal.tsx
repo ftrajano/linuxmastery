@@ -25,6 +25,7 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
   const [mode, setMode] = useState<TerminalMode>("lesson");
   const [terminalHistory, setTerminalHistory] = useState<Array<{command: string, output: string}>>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const [showHint, setShowHint] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<TerminalSimulator>(new TerminalSimulator());
   const { toast } = useToast();
@@ -168,12 +169,6 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
         {mode === "lesson" && (
           <div className="text-green-400 mb-2">user@sysadmin:~$</div>
         )}
-        
-        {mode === "lesson" && content.mockOutput && (
-          <div className="text-white mb-4 whitespace-pre-line">
-            {content.mockOutput}
-          </div>
-        )}
 
         {mode === "explore" && (
           <div className="mb-4">
@@ -217,10 +212,22 @@ export default function InteractiveTerminal({ lesson, showStats = false }: Inter
       </div>
 
       {mode === "lesson" && content.hint && !isCompleted && (
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-          <p className="text-sm text-blue-800">
-            <strong>Hint:</strong> {content.hint}
-          </p>
+        <div className="mt-6">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowHint(!showHint)}
+            className="mb-2"
+          >
+            {showHint ? "Hide Hint" : "Show Hint"} 💡
+          </Button>
+          {showHint && (
+            <div className="p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-800">
+                <strong>Hint:</strong> {content.hint}
+              </p>
+            </div>
+          )}
         </div>
       )}
 
