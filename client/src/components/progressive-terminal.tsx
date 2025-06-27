@@ -90,6 +90,7 @@ export default function ProgressiveTerminal({ lesson, onStatsUpdate }: Progressi
   const [terminalHistory, setTerminalHistory] = useState<Array<{command: string, output: string, success?: boolean}>>([]);
   const [isCompleted, setIsCompleted] = useState(false);
   const [hasStarted, setHasStarted] = useState(false);
+  const [showHint, setShowHint] = useState(false);
   
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<TerminalSimulator>(new TerminalSimulator());
@@ -282,10 +283,22 @@ export default function ProgressiveTerminal({ lesson, onStatsUpdate }: Progressi
 
       {/* Hint */}
       {!isCompleted && (
-        <div className="bg-blue-50 rounded-lg p-4">
-          <div className="text-sm text-blue-800">
-            <strong>Hint:</strong> {currentEx.hint}
-          </div>
+        <div className="mt-6">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowHint(!showHint)}
+            className="mb-2"
+          >
+            {showHint ? "Hide Hint" : "Show Hint"} 💡
+          </Button>
+          {showHint && (
+            <div className="bg-blue-50 rounded-lg p-4">
+              <div className="text-sm text-blue-800">
+                <strong>Hint:</strong> {currentEx.hint}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
