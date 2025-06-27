@@ -72,9 +72,7 @@ export default function Lesson() {
   // Navigation logic
   const currentLessonId = parseInt(id || "0");
   const currentIndex = allLessons.findIndex(l => l.id === currentLessonId);
-  const previousLesson = currentIndex > 0 ? allLessons[currentIndex - 1] : null;
   const nextLesson = currentIndex < allLessons.length - 1 ? allLessons[currentIndex + 1] : null;
-  const currentLessonData = allLessons.find(l => l.id === currentLessonId);
 
   const handleStatsUpdate = (newStats: typeof stats) => {
     setStats(newStats);
@@ -131,27 +129,21 @@ export default function Lesson() {
   }
 
   return (
-    <div className="h-screen bg-gray-50 overflow-hidden">
-      {/* Header */}
-      <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-3">
+    <div className="min-h-screen bg-gray-50">
+      {/* Simple Header */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link href="/chapters">
-                <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M 3 5 A 1.0001 1.0001 0 1 0 3 7 L 21 7 A 1.0001 1.0001 0 1 0 21 5 L 3 5 z M 3 11 A 1.0001 1.0001 0 1 0 3 13 L 21 13 A 1.0001 1.0001 0 1 0 21 11 L 3 11 z M 3 17 A 1.0001 1.0001 0 1 0 3 19 L 21 19 A 1.0001 1.0001 0 1 0 21 17 L 3 17 z"/>
-                  </svg>
-                  <span>Chapters</span>
-                </Button>
-              </Link>
-            </div>
-            
-            <div className="flex-1"></div>
+            <Link href="/chapters">
+              <Button variant="ghost" size="sm">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Chapters
+              </Button>
+            </Link>
             
             {nextLesson && (
               <Link href={`/lesson/${nextLesson.id}`}>
-                <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600">
+                <Button>
                   Next Lesson
                   <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
                 </Button>
@@ -161,171 +153,27 @@ export default function Lesson() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex h-full" style={{ height: 'calc(100vh - 73px)' }}>
-        {/* Left Side - Exercise */}
-        <div className="flex-1 p-6 overflow-y-auto">
-          <div className="space-y-6">
-            {/* Exercise Header */}
-            <div className="bg-white rounded-lg p-6 shadow-sm">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">
-                {lesson?.title || 'Loading...'}
-              </h1>
-              <p className="text-gray-600 mb-4">
-                {lesson?.description || 'Loading lesson description...'}
-              </p>
-              
-              {/* Command Explanations */}
-              {currentLessonId === 1 && (
-                <div className="bg-blue-50 rounded-lg p-4 mb-4">
-                  <h3 className="font-semibold text-blue-900 mb-3">Understanding the `ls` command:</h3>
-                  <div className="space-y-2 text-sm">
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls</code> - List directory contents (basic)</div>
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls -F</code> - Add indicators (/ for directories, * for executables)</div>
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls -l</code> - Long format (permissions, size, date)</div>
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls -a</code> - Show all files including hidden ones (.files)</div>
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls -lh</code> - Long format with human-readable file sizes</div>
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls -r</code> - Reverse order</div>
-                    <div><code className="bg-blue-100 px-2 py-1 rounded text-blue-800">ls -t</code> - Sort by modification time</div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Terminal/Exercise Area */}
-            <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-              <div className="p-6">
-                {lesson && currentLessonId === 1 ? (
-                  <ProgressiveTerminal lesson={lesson} onStatsUpdate={handleStatsUpdate} />
-                ) : lesson ? (
-                  <InteractiveTerminal lesson={lesson} />
-                ) : null}
-              </div>
-            </div>
+      {/* Main Content - Centered and Clean */}
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="space-y-6">
+          {/* Simple Header */}
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+              {lesson?.title || 'Loading...'}
+            </h1>
+            <p className="text-gray-600">
+              {lesson?.description || 'Loading lesson description...'}
+            </p>
           </div>
-        </div>
 
-        {/* Right Side - Stats and Progress */}
-        <div className="w-96 bg-white border-l border-gray-200 p-6 overflow-y-auto">
-          <div className="space-y-6">
-            {/* Current Session Stats */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Session</h3>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-2 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
-                    <div className="text-white font-bold text-sm">{stats.attempts}</div>
-                  </div>
-                  <div className="text-xs text-gray-500">Attempts</div>
-                  <div className="text-sm font-semibold">Get to 10</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">{stats.timeElapsed.toFixed(1)}s</div>
-                  <div className="text-xs text-gray-500">Time</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900">{stats.commands}</div>
-                  <div className="text-xs text-gray-500">Commands</div>
-                </div>
-              </div>
-              
-              {/* Exercise Progress */}
-              <div className="mt-4 bg-gray-50 rounded-lg p-3">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600">Exercise Progress</span>
-                  <span className="font-medium">{stats.currentExercise} / {stats.totalExercises}</span>
-                </div>
-                <div className="mt-2 w-full bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${(stats.currentExercise / stats.totalExercises) * 100}%` }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-
-            {/* Progress Circles */}
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Progress</h3>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium text-gray-900">Total Time</div>
-                    <div className="text-sm text-gray-500">Get to 600s</div>
-                  </div>
-                  <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    0.0s
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium text-gray-900">Fastest Time</div>
-                    <div className="text-sm text-gray-500">Get to 20s</div>
-                  </div>
-                  <div className="w-16 h-16 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    -
-                  </div>
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium text-gray-900">Fewest Keystrokes</div>
-                    <div className="text-sm text-gray-500">Get to 100</div>
-                  </div>
-                  <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                    -
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Additional Stats */}
-            <div className="space-y-4">
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="text-center mb-2">
-                  <div className="font-medium text-gray-900">Average Time</div>
-                  <div className="text-2xl font-bold text-gray-900">-</div>
-                </div>
-              </div>
-              
-              <div className="bg-gray-50 rounded-lg p-4">
-                <div className="text-center">
-                  <div className="font-medium text-gray-900">Average Keystrokes</div>
-                  <div className="text-2xl font-bold text-gray-900">-</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Charts Placeholder */}
-            <div className="space-y-4">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium text-gray-900">Time</h4>
-                  <Button variant="ghost" size="sm">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19.452 7.5H4.547a.5.5 0 00-.5.545l1.287 14.136A2 2 0 007.326 24h9.347a2 2 0 001.992-1.819L19.95 8.045a.5.5 0 00-.129-.382.5.5 0 00-.369-.163zm-9.2 13a.75.75 0 01-1.5 0v-9a.75.75 0 011.5 0zm5 0a.75.75 0 01-1.5 0v-9a.75.75 0 011.5 0z"/>
-                    </svg>
-                  </Button>
-                </div>
-                <div className="h-32 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-                  Chart Area
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-medium text-gray-900">Keystrokes</h4>
-                  <Button variant="ghost" size="sm">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M19.452 7.5H4.547a.5.5 0 00-.5.545l1.287 14.136A2 2 0 007.326 24h9.347a2 2 0 001.992-1.819L19.95 8.045a.5.5 0 00-.129-.382.5.5 0 00-.369-.163zm-9.2 13a.75.75 0 01-1.5 0v-9a.75.75 0 011.5 0zm5 0a.75.75 0 01-1.5 0v-9a.75.75 0 011.5 0z"/>
-                    </svg>
-                  </Button>
-                </div>
-                <div className="h-32 bg-gray-100 rounded-lg flex items-center justify-center text-gray-400">
-                  Chart Area
-                </div>
-              </div>
+          {/* Terminal Area - Focus on Learning */}
+          <div className="bg-white rounded-lg shadow-sm">
+            <div className="p-6">
+              {lesson && currentLessonId === 1 ? (
+                <ProgressiveTerminal lesson={lesson} onStatsUpdate={handleStatsUpdate} />
+              ) : lesson ? (
+                <InteractiveTerminal lesson={lesson} />
+              ) : null}
             </div>
           </div>
         </div>
