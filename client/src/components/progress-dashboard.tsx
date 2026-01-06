@@ -87,19 +87,21 @@ export default function ProgressDashboard() {
   ];
 
   return (
-    <section className="py-16 bg-white" id="progress">
+    <section className="py-16 bg-terminal-black border-b border-terminal-border" id="progress">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">Your Progress</h2>
-        
+        <h2 className="text-3xl font-bold text-gray-100 text-center mb-12">
+          <span className="text-terminal-green font-mono">cat</span> ./progress
+        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {progressStats.map((stat, index) => (
-            <div key={index} className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-              <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-sm text-gray-600 mb-1">{stat.label}</div>
+            <div key={index} className="bg-terminal-dark rounded-lg p-6 border border-terminal-border">
+              <div className="text-3xl font-bold text-terminal-green font-mono mb-2">{stat.value}</div>
+              <div className="text-sm text-gray-400 mb-1">{stat.label}</div>
               <div className="text-xs text-gray-500">{stat.target}</div>
-              <div className="mt-3 bg-gray-200 rounded-full h-2">
-                <div 
-                  className={`${stat.color} h-2 rounded-full transition-all duration-300`}
+              <div className="mt-3 bg-terminal-gray rounded-full h-1.5">
+                <div
+                  className="bg-terminal-green h-1.5 rounded-full transition-all duration-300"
                   style={{ width: `${stat.progress}%` }}
                 ></div>
               </div>
@@ -107,37 +109,37 @@ export default function ProgressDashboard() {
           ))}
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-          <h3 className="text-xl font-semibold text-gray-900 mb-6">Command Group Mastery</h3>
+        <div className="bg-terminal-dark rounded-lg p-8 border border-terminal-border">
+          <h3 className="text-xl font-semibold text-gray-100 mb-6">Command Group Mastery</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {commandGroups.map((group) => {
               const circumference = 251.2;
               const strokeDashoffset = circumference - (group.percentage / 100) * circumference;
-              
+
               return (
                 <div key={group.name} className="text-center">
                   <div className="relative inline-flex items-center justify-center w-24 h-24 mb-4">
                     <svg className="w-24 h-24 transform -rotate-90">
-                      <circle cx="48" cy="48" r="40" stroke="#E5E7EB" strokeWidth="8" fill="none"/>
-                      <circle 
-                        cx="48" 
-                        cy="48" 
-                        r="40" 
-                        strokeWidth="8" 
-                        fill="none" 
+                      <circle cx="48" cy="48" r="40" stroke="#21262d" strokeWidth="8" fill="none"/>
+                      <circle
+                        cx="48"
+                        cy="48"
+                        r="40"
+                        strokeWidth="8"
+                        fill="none"
                         strokeDasharray={circumference}
                         strokeDashoffset={strokeDashoffset}
-                        className={`transition-all duration-300 ${group.color}`}
+                        className="transition-all duration-300 stroke-terminal-green"
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold text-gray-900">{group.percentage}%</span>
+                      <span className="text-lg font-bold text-terminal-green font-mono">{group.percentage}%</span>
                     </div>
                   </div>
-                  <h4 className="font-semibold text-gray-900 mb-2">{group.name}</h4>
+                  <h4 className="font-semibold text-gray-200 mb-2">{group.name}</h4>
                   <div className="flex flex-wrap justify-center gap-1 mb-2">
                     {group.commands.map((cmd) => (
-                      <span key={cmd} className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono bg-gray-100 text-gray-600">
+                      <span key={cmd} className="command-badge text-xs">
                         {cmd}
                       </span>
                     ))}

@@ -184,8 +184,8 @@ export default function ProgressiveTerminal({ lesson, onStatsUpdate }: Progressi
       }
     } else {
       toast({
-        title: "Try again ❌",
-        description: currentEx.hint,
+        title: "Try again",
+        description: "Check your command and try again. Use the hint button if you need help.",
         variant: "destructive",
       });
     }
@@ -198,104 +198,148 @@ export default function ProgressiveTerminal({ lesson, onStatsUpdate }: Progressi
   return (
     <div className="space-y-4">
       {/* Exercise Progress */}
-      <div className="flex items-center justify-between bg-gray-50 rounded-lg p-4">
+      <div className="flex items-center justify-between bg-terminal-dark border border-terminal-border rounded-lg p-4">
         <div>
-          <div className="font-medium text-gray-900">
+          <div className="font-medium text-gray-100">
             Exercise {currentExercise + 1} of {lsExercises.length}
           </div>
-          <div className="text-sm text-gray-600">
-            {isCompleted ? "Lesson Complete! 🎉" : currentEx.instruction}
+          <div className="text-sm text-gray-400">
+            {isCompleted ? "Lesson Complete!" : currentEx.instruction}
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             onClick={resetLesson}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-400 hover:text-terminal-green font-mono text-sm"
           >
-            <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M10.319,4.936a7.239,7.239,0,0,1,7.1,2.252,1.25,1.25,0,1,0,1.872-1.657A9.737,9.737,0,0,0,9.743,2.5,10.269,10.269,0,0,0,2.378,9.61a.249.249,0,0,1-.271.178l-1.033-.13A.491.491,0,0,0,.6,9.877a.5.5,0,0,0-.019.526l2.476,4.342a.5.5,0,0,0,.373.248.43.43,0,0,0,.062,0,.5.5,0,0,0,.359-.152l3.477-3.593a.5.5,0,0,0-.3-.844L5.15,10.172a.25.25,0,0,1-.2-.333A7.7,7.7,0,0,1,10.319,4.936Z"/>
-            </svg>
-            Reset
+            [reset]
           </Button>
-          <div className="w-24 bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${((currentExercise + (isCompleted ? 1 : 0)) / lsExercises.length) * 100}%` }}
-            ></div>
+          {/* Segmented progress indicator */}
+          <div className="flex items-center space-x-1">
+            {lsExercises.map((_, index) => (
+              <div
+                key={index}
+                className={`w-2.5 h-2.5 rounded-sm transition-all duration-300 ${
+                  index < currentExercise
+                    ? 'bg-terminal-green'
+                    : index === currentExercise
+                      ? 'bg-terminal-green animate-pulse'
+                      : 'bg-terminal-gray'
+                }`}
+              />
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Terminal */}
-      <div className="bg-gray-900 rounded-lg p-6 font-mono text-sm min-h-96">
-        {/* Terminal History */}
-        <div className="mb-4 space-y-2">
-          {terminalHistory.map((entry, index) => (
-            <div key={index} className="mb-2">
-              <div className={`text-green-400 ${entry.success === false ? 'text-red-400' : ''}`}>
-                user@linux:~$ <span className="text-white">{entry.command}</span>
-              </div>
-              {entry.output && (
-                <div className="text-white whitespace-pre-line ml-0 mt-1">
-                  {entry.output}
-                </div>
-              )}
-              {entry.success === true && (
-                <div className="text-green-400 mt-1">✅ Correct! Moving to next exercise...</div>
-              )}
-              {entry.success === false && (
-                <div className="text-red-400 mt-1">❌ Try again. Hint: {currentEx.hint}</div>
-              )}
-            </div>
-          ))}
+      {/* Terminal with window chrome */}
+      <div className="terminal-window">
+        {/* macOS-style titlebar */}
+        <div className="terminal-titlebar">
+          <div className="terminal-buttons">
+            <div className="terminal-button close"></div>
+            <div className="terminal-button minimize"></div>
+            <div className="terminal-button maximize"></div>
+          </div>
+          <div className="flex-1 text-center">
+            <span className="text-xs text-gray-500 font-mono">
+              user@linuxmastery: ~/lessons
+            </span>
+          </div>
+          <div className="w-16"></div>
         </div>
 
-        {/* Current Input */}
-        {!isCompleted && (
-          <form onSubmit={handleSubmit} className="flex items-center">
-            <span className="text-green-400 mr-2">user@linux:~$</span>
-            <Input
-              ref={inputRef}
-              type="text"
-              value={command}
-              onChange={(e) => setCommand(e.target.value)}
-              onFocus={startTimer}
-              className="bg-transparent text-white flex-1 outline-none font-mono border-none focus:ring-0 p-0"
-              placeholder={`Type: ${currentEx.expectedCommand}`}
-              autoFocus
-            />
-            <div className="w-2 h-4 bg-white animate-pulse ml-1"></div>
-          </form>
-        )}
-
-        {/* Completion Message */}
-        {isCompleted && (
-          <div className="text-center">
-            <div className="text-green-400 text-lg mb-2">🎉 Lesson Complete!</div>
-            <div className="text-gray-300 mb-4">
-              You completed all {lsExercises.length} exercises in {timeElapsed.toFixed(1)}s with {totalCommands} commands
-            </div>
+        {/* Terminal content */}
+        <div className="terminal-content">
+          {/* Terminal History */}
+          <div className="mb-4 space-y-3">
+            {terminalHistory.map((entry, index) => (
+              <div key={index}>
+                <div className="flex items-start">
+                  <span className="prompt-user">user@linux</span>
+                  <span className="prompt-separator">:</span>
+                  <span className="prompt-path">~</span>
+                  <span className="prompt-symbol">$ </span>
+                  <span className={`text-gray-100 ${entry.success === false ? 'text-syntax-red' : ''}`}>
+                    {entry.command}
+                  </span>
+                </div>
+                {entry.output && (
+                  <pre className="text-gray-300 whitespace-pre-wrap mt-1 text-sm leading-relaxed">
+                    {entry.output}
+                  </pre>
+                )}
+                {entry.success === true && (
+                  <div className="text-terminal-green mt-2 font-medium">
+                    Correct! Moving to next exercise...
+                  </div>
+                )}
+                {entry.success === false && (
+                  <div className="text-syntax-red mt-2">
+                    Try again.
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
-        )}
+
+          {/* Current Input */}
+          {!isCompleted && (
+            <form onSubmit={handleSubmit} className="flex items-center">
+              <span className="prompt-user">user@linux</span>
+              <span className="prompt-separator">:</span>
+              <span className="prompt-path">~</span>
+              <span className="prompt-symbol">$ </span>
+              <Input
+                ref={inputRef}
+                type="text"
+                value={command}
+                onChange={(e) => setCommand(e.target.value)}
+                onFocus={startTimer}
+                className="bg-transparent text-gray-100 flex-1 outline-none font-mono border-none focus:ring-0 p-0 placeholder:text-gray-600"
+                placeholder="Type your command here..."
+                autoFocus
+              />
+              <div className="terminal-cursor"></div>
+            </form>
+          )}
+
+          {/* Completion Message */}
+          {isCompleted && (
+            <div className="text-center py-8">
+              <div className="text-terminal-green text-xl mb-3 text-glow-green">
+                Lesson Complete!
+              </div>
+              <div className="text-gray-400">
+                You completed all {lsExercises.length} exercises in{' '}
+                <span className="text-terminal-amber font-mono">{timeElapsed.toFixed(1)}s</span> with{' '}
+                <span className="text-terminal-amber font-mono">{totalCommands}</span> commands
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Hint */}
       {!isCompleted && (
-        <div className="mt-6">
+        <div>
           <Button
-            variant="outline"
+            variant="ghost"
             size="sm"
             onClick={() => setShowHint(!showHint)}
-            className="mb-2"
+            className="text-gray-500 hover:text-terminal-amber font-mono text-sm"
           >
-            {showHint ? "Hide Hint" : "Show Hint"} 💡
+            {showHint ? '[-] hide hint' : '[+] show hint'}
           </Button>
           {showHint && (
-            <div className="bg-blue-50 rounded-lg p-4">
-              <div className="text-sm text-blue-800">
-                <strong>Hint:</strong> {currentEx.hint}
+            <div className="mt-3 p-4 bg-terminal-dark border-l-2 border-terminal-amber rounded-r">
+              <div className="flex items-start space-x-3">
+                <span className="text-terminal-amber font-mono text-sm">hint:</span>
+                <p className="text-gray-300 text-sm font-mono">
+                  {currentEx.hint}
+                </p>
               </div>
             </div>
           )}

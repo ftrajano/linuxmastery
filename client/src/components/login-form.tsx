@@ -44,39 +44,43 @@ export function LoginForm({ onLogin, onClose }: LoginFormProps) {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
+    <Card className="w-full max-w-md mx-auto bg-terminal-dark border-terminal-border">
       <CardHeader>
-        <CardTitle>Sign In</CardTitle>
+        <CardTitle className="text-gray-100 font-mono">
+          <span className="text-terminal-green">$</span> login
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
               type="text"
-              placeholder="Username"
+              placeholder="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              className="bg-terminal-black border-terminal-border text-gray-100 font-mono placeholder:text-gray-600"
               required
             />
           </div>
           <div>
             <Input
               type="password"
-              placeholder="Password"
+              placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="bg-terminal-black border-terminal-border text-gray-100 font-mono placeholder:text-gray-600"
               required
             />
           </div>
           {error && (
-            <div className="text-red-500 text-sm">{error}</div>
+            <div className="text-syntax-red text-sm font-mono">{error}</div>
           )}
           <div className="flex gap-2">
-            <Button type="submit" disabled={loading} className="flex-1">
-              {loading ? "Signing in..." : "Sign In"}
+            <Button type="submit" disabled={loading} className="flex-1 bg-terminal-green-dim hover:bg-terminal-green text-white border border-terminal-green font-mono">
+              {loading ? "authenticating..." : "$ authenticate"}
             </Button>
-            <Button type="button" variant="outline" onClick={onClose}>
-              Cancel
+            <Button type="button" variant="outline" onClick={onClose} className="border-terminal-border text-gray-400 hover:text-gray-100 bg-transparent font-mono">
+              cancel
             </Button>
           </div>
         </form>

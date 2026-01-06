@@ -80,21 +80,21 @@ export default function Lesson() {
 
   if (isLoading) {
     return (
-      <div className="h-screen bg-gray-50 overflow-hidden">
-        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+      <div className="h-screen bg-terminal-black overflow-hidden">
+        <div className="sticky top-0 z-50 bg-terminal-black/95 backdrop-blur-sm border-b border-terminal-border">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <Link href="/chapters">
-                <Button variant="ghost" size="sm">Chapters</Button>
+                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-terminal-green font-mono">[chapters]</Button>
               </Link>
             </div>
           </div>
         </div>
         <div className="flex h-full p-6">
           <div className="flex-1 animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2 mb-8"></div>
-            <div className="h-96 bg-gray-200 rounded"></div>
+            <div className="h-8 bg-terminal-gray rounded w-1/4 mb-4"></div>
+            <div className="h-4 bg-terminal-gray rounded w-1/2 mb-8"></div>
+            <div className="h-96 bg-terminal-gray rounded"></div>
           </div>
         </div>
       </div>
@@ -103,23 +103,23 @@ export default function Lesson() {
 
   if (!lesson) {
     return (
-      <div className="h-screen bg-gray-50 overflow-hidden">
-        <div className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+      <div className="h-screen bg-terminal-black overflow-hidden">
+        <div className="sticky top-0 z-50 bg-terminal-black/95 backdrop-blur-sm border-b border-terminal-border">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <div className="flex items-center justify-between">
               <Link href="/chapters">
-                <Button variant="ghost" size="sm">Chapters</Button>
+                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-terminal-green font-mono">[chapters]</Button>
               </Link>
             </div>
           </div>
         </div>
         <div className="flex h-full items-center justify-center">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Lesson Not Found</h1>
+            <h1 className="text-2xl font-bold text-gray-100 mb-4">Lesson Not Found</h1>
             <Link href="/chapters">
-              <Button>
+              <Button className="bg-terminal-green-dim hover:bg-terminal-green text-white border border-terminal-green font-mono">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Chapters
+                cd ../chapters
               </Button>
             </Link>
           </div>
@@ -129,22 +129,22 @@ export default function Lesson() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-terminal-black">
       {/* Simple Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-terminal-black border-b border-terminal-border">
         <div className="max-w-4xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <Link href="/chapters">
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-terminal-green font-mono">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Chapters
+                cd ../chapters
               </Button>
             </Link>
-            
+
             {nextLesson && (
               <Link href={`/lesson/${nextLesson.id}`}>
-                <Button>
-                  Next Lesson
+                <Button className="bg-terminal-green-dim hover:bg-terminal-green text-white border border-terminal-green font-mono text-sm">
+                  next lesson
                   <ArrowLeft className="w-4 h-4 ml-2 rotate-180" />
                 </Button>
               </Link>
@@ -158,16 +158,16 @@ export default function Lesson() {
         <div className="space-y-6">
           {/* Simple Header */}
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl font-bold text-gray-100 mb-2">
               {lesson?.title || 'Loading...'}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-gray-400">
               {lesson?.description || 'Loading lesson description...'}
             </p>
           </div>
 
           {/* Terminal Area - Focus on Learning */}
-          <div className="bg-white rounded-lg shadow-sm">
+          <div className="bg-terminal-dark rounded-lg border border-terminal-border">
             <div className="p-6">
               {lesson && currentLessonId === 1 ? (
                 <ProgressiveTerminal lesson={lesson} onStatsUpdate={handleStatsUpdate} />

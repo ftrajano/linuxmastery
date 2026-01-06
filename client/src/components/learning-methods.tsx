@@ -1,57 +1,42 @@
 export default function LearningMethods() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-terminal-black border-b border-terminal-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-          <div className="text-center">
-            <div className="mb-8 relative">
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
-                alt="Server monitoring dashboard with system metrics" 
-                className="rounded-xl shadow-lg w-full h-48 object-cover" 
-              />
-              <div className="absolute inset-0 bg-blue-600 bg-opacity-10 rounded-xl"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="bg-terminal-dark rounded-lg border border-terminal-border p-8 text-center hover:border-terminal-green/30 transition-colors">
+            <div className="mb-6 w-16 h-16 mx-auto bg-terminal-gray rounded-lg flex items-center justify-center border border-terminal-border">
+              <span className="text-terminal-green font-mono text-2xl">&gt;</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Learn Commands</h3>
-            <p className="text-gray-600 mb-6">
-              Bite-sized lessons get to the point. Early lessons get you walking with Linux commands as fast as possible. 
+            <h3 className="text-xl font-semibold text-gray-100 mb-4">Learn Commands</h3>
+            <p className="text-gray-400 mb-6">
+              Bite-sized lessons get to the point. Early lessons get you walking with Linux commands as fast as possible.
               Later lessons let you go fast, increasing speed and efficiency with advanced concepts.
             </p>
-            <div className="text-sm text-blue-600 font-medium">Interactive lessons with real scenarios</div>
+            <div className="text-sm text-terminal-green font-mono">./interactive-lessons</div>
           </div>
 
-          <div className="text-center">
-            <div className="mb-8 relative">
-              <img 
-                src="https://images.unsplash.com/photo-1629654297299-c8506221ca97?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
-                alt="Terminal window showing command line interface with system commands" 
-                className="rounded-xl shadow-lg w-full h-48 object-cover" 
-              />
-              <div className="absolute inset-0 bg-purple-600 bg-opacity-10 rounded-xl"></div>
+          <div className="bg-terminal-dark rounded-lg border border-terminal-border p-8 text-center hover:border-terminal-amber/30 transition-colors">
+            <div className="mb-6 w-16 h-16 mx-auto bg-terminal-gray rounded-lg flex items-center justify-center border border-terminal-border">
+              <span className="text-terminal-amber font-mono text-2xl">$</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Practice Commands</h3>
-            <p className="text-gray-600 mb-6">
-              Focused exercises make concepts stick, building proficiency and agility with real system scenarios, 
+            <h3 className="text-xl font-semibold text-gray-100 mb-4">Practice Commands</h3>
+            <p className="text-gray-400 mb-6">
+              Focused exercises make concepts stick, building proficiency and agility with real system scenarios,
               preparing your new Linux command powers for real world tasks.
             </p>
-            <div className="text-sm text-purple-600 font-medium">Safe terminal simulation environment</div>
+            <div className="text-sm text-terminal-amber font-mono">./safe-simulation</div>
           </div>
 
-          <div className="text-center">
-            <div className="mb-8 relative">
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=300" 
-                alt="Analytics dashboard showing performance metrics and progress charts" 
-                className="rounded-xl shadow-lg w-full h-48 object-cover" 
-              />
-              <div className="absolute inset-0 bg-green-600 bg-opacity-10 rounded-xl"></div>
+          <div className="bg-terminal-dark rounded-lg border border-terminal-border p-8 text-center hover:border-syntax-purple/30 transition-colors">
+            <div className="mb-6 w-16 h-16 mx-auto bg-terminal-gray rounded-lg flex items-center justify-center border border-terminal-border">
+              <span className="text-syntax-purple font-mono text-2xl">#</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Master Commands</h3>
-            <p className="text-gray-600 mb-6">
-              Use statistics and achievement tracking to target weak spots, get rapid feedback, reveal progress, 
+            <h3 className="text-xl font-semibold text-gray-100 mb-4">Master Commands</h3>
+            <p className="text-gray-400 mb-6">
+              Use statistics and achievement tracking to target weak spots, get rapid feedback, reveal progress,
               and systematically practice to reach mastery, setting commands into muscle memory.
             </p>
-            <div className="text-sm text-green-600 font-medium">Statistics and achievement system</div>
+            <div className="text-sm text-syntax-purple font-mono">./track-progress</div>
           </div>
         </div>
       </div>

@@ -5,12 +5,32 @@ export default {
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"IBM Plex Sans"', 'system-ui', 'sans-serif'],
+        mono: ['"IBM Plex Mono"', '"JetBrains Mono"', 'monospace'],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
+        terminal: {
+          black: '#0d1117',
+          dark: '#161b22',
+          gray: '#21262d',
+          border: '#30363d',
+          green: '#3fb950',
+          'green-dim': '#238636',
+          amber: '#d29922',
+        },
+        syntax: {
+          blue: '#58a6ff',
+          purple: '#bc8cff',
+          red: '#ff7b72',
+          cyan: '#79c0ff',
+          orange: '#ffa657',
+        },
         background: "var(--background)",
         foreground: "var(--foreground)",
         card: {

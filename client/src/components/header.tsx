@@ -21,8 +21,8 @@ export default function Header() {
   };
 
   return (
-    <header 
-      className="sticky top-0 z-50 bg-white/80 backdrop-blur-md backdrop-saturate-150 border-b border-gray-200/50"
+    <header
+      className="sticky top-0 z-50 bg-terminal-black/95 backdrop-blur-md border-b border-terminal-border"
       style={{
         backfaceVisibility: 'hidden',
         transform: 'translateZ(0)'
@@ -32,11 +32,12 @@ export default function Header() {
         <div className="flex justify-between items-center py-4">
           {/* Logo and Brand */}
           <Link href="/">
-            <button className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-lg flex items-center justify-center font-bold text-lg shadow-lg">
-                L
+            <button className="flex items-center space-x-3 hover:opacity-80 transition-opacity group">
+              <div className="font-mono text-terminal-green text-xl font-semibold">
+                <span className="text-terminal-green-dim">$</span>
+                <span className="text-terminal-green animate-pulse">_</span>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+              <h1 className="text-xl font-semibold text-gray-100 group-hover:text-terminal-green transition-colors">
                 LinuxMastery
               </h1>
             </button>
@@ -44,14 +45,14 @@ export default function Header() {
 
           {/* Center Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <a href="#lessons" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
-              Lessons
+            <a href="#lessons" className="text-gray-400 hover:text-terminal-green transition-colors font-mono text-sm">
+              ./lessons
             </a>
-            <a href="#practice" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
-              Practice
+            <a href="#practice" className="text-gray-400 hover:text-terminal-green transition-colors font-mono text-sm">
+              ./practice
             </a>
-            <a href="#progress" className="text-gray-600 hover:text-blue-600 transition-colors font-medium">
-              Progress
+            <a href="#progress" className="text-gray-400 hover:text-terminal-green transition-colors font-mono text-sm">
+              ./progress
             </a>
           </nav>
 
@@ -59,44 +60,39 @@ export default function Header() {
           <div className="flex items-center space-x-3">
             {user ? (
               <>
-                <Button 
-                  variant="ghost" 
-                  className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                <Button
+                  variant="ghost"
+                  className="text-gray-400 hover:text-terminal-green hover:bg-terminal-gray font-mono text-sm"
                 >
-                  View Progress
+                  [progress]
                 </Button>
                 <div className="flex items-center space-x-3">
-                  <span className="text-gray-700 font-medium">Welcome, {user.username}!</span>
-                  <Button 
-                    variant="outline" 
+                  <span className="text-gray-300 font-mono text-sm">
+                    <span className="text-terminal-green">user</span>@{user.username}
+                  </span>
+                  <Button
+                    variant="outline"
                     onClick={handleLogout}
-                    className="border-gray-300 hover:border-gray-400"
+                    className="border-terminal-border text-gray-400 hover:text-syntax-red hover:border-syntax-red bg-transparent font-mono text-sm"
                   >
-                    Logout
+                    [logout]
                   </Button>
                 </div>
               </>
             ) : (
               <>
-                <Button 
-                  variant="ghost" 
-                  className="text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                <Button
+                  variant="ghost"
+                  className="text-gray-400 hover:text-terminal-green hover:bg-terminal-gray font-mono text-sm"
                   onClick={() => setShowLogin(true)}
                 >
-                  View Demo
+                  [demo]
                 </Button>
-                <Button 
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:from-blue-700 hover:to-purple-700 shadow-lg transition-all duration-200 group"
+                <Button
+                  className="bg-terminal-green-dim text-white hover:bg-terminal-green border border-terminal-green transition-all duration-200 font-mono text-sm"
                   onClick={() => setShowLogin(true)}
                 >
-                  Get Started
-                  <svg 
-                    viewBox="0 0 24 24" 
-                    className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" 
-                    fill="currentColor"
-                  >
-                    <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
-                  </svg>
+                  $ start --now
                 </Button>
               </>
             )}
@@ -105,10 +101,10 @@ export default function Header() {
       </div>
 
       <Dialog open={showLogin} onOpenChange={setShowLogin}>
-        <DialogContent>
-          <LoginForm 
-            onLogin={handleLogin} 
-            onClose={() => setShowLogin(false)} 
+        <DialogContent className="bg-terminal-dark border-terminal-border">
+          <LoginForm
+            onLogin={handleLogin}
+            onClose={() => setShowLogin(false)}
           />
         </DialogContent>
       </Dialog>

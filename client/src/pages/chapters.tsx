@@ -123,11 +123,11 @@ export default function ChaptersPage() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-terminal-black flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Please sign in to continue</h2>
+          <h2 className="text-2xl font-bold text-gray-100 mb-4">Please sign in to continue</h2>
           <Link href="/">
-            <a className="text-blue-600 hover:text-blue-800">Go back to home</a>
+            <a className="text-terminal-green hover:text-terminal-green/80 font-mono">cd /home</a>
           </Link>
         </div>
       </div>
@@ -135,52 +135,44 @@ export default function ChaptersPage() {
   }
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden bg-terminal-black">
       <Header />
-      <div className="h-screen bg-gray-50 overflow-hidden" style={{ height: 'calc(100vh - 80px)' }}>
+      <div className="h-screen bg-terminal-black overflow-hidden" style={{ height: 'calc(100vh - 80px)' }}>
         <div className="max-w-6xl mx-auto px-4 py-8 h-full overflow-hidden">
           <div className="max-w-4xl mx-auto h-full overflow-hidden">
             <Accordion type="single" collapsible className="w-full space-y-4 overflow-hidden">
                 {chapters.map((chapter) => {
-                  
+
                   return (
-                    <AccordionItem key={chapter.id} value={`chapter-${chapter.id}`} className="border border-gray-200 rounded-lg overflow-hidden">
-                      <AccordionTrigger className="px-6 py-6 hover:no-underline bg-white hover:bg-gray-50 transition-colors">
+                    <AccordionItem key={chapter.id} value={`chapter-${chapter.id}`} className="border border-terminal-border rounded-lg overflow-hidden">
+                      <AccordionTrigger className="px-6 py-6 hover:no-underline bg-terminal-dark hover:bg-terminal-gray transition-colors">
                         <div className="flex items-center justify-between w-full">
-                          <div className="text-2xl font-bold text-left text-gray-900">{chapter.title}</div>
-                          <svg viewBox="0 0 24 24" className="w-6 h-6 text-gray-400" fill="currentColor">
+                          <div className="text-xl font-semibold text-left text-gray-100">{chapter.title}</div>
+                          <svg viewBox="0 0 24 24" className="w-6 h-6 text-terminal-green" fill="currentColor">
                             <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
                           </svg>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="px-0 pb-0">
-                        <div className="bg-gray-50">
+                        <div className="bg-terminal-black">
                           <div className="overflow-hidden">
-                            <div className="divide-y divide-gray-100">
+                            <div className="divide-y divide-terminal-border">
                               {chapter.lessons.map((lesson) => (
                                 <Link key={lesson.id} href={`/lesson/${lesson.id}`}>
-                                  <div className="px-6 py-4 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+                                  <div className="px-6 py-4 bg-terminal-dark hover:bg-terminal-gray transition-colors cursor-pointer group">
                                     <div className="flex items-center justify-between">
                                       <div className="flex items-start gap-4 flex-1">
-                                        <div className="text-base font-medium text-gray-900 min-w-[160px]">
+                                        <div className="text-base font-medium text-gray-200 min-w-[160px] group-hover:text-terminal-green transition-colors">
                                           {lesson.title}
                                         </div>
                                         <div className="flex-1">
-                                          <div className="text-sm text-gray-600">
+                                          <div className="text-sm text-gray-500">
                                             {lesson.description}
                                           </div>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 ml-4">
-                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center">
-                                          <div className="w-3 h-3 bg-white rounded-full"></div>
-                                        </div>
-                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
-                                          <div className="w-3 h-3 bg-white rounded-full"></div>
-                                        </div>
-                                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                                          <div className="w-3 h-3 bg-white rounded-full"></div>
-                                        </div>
+                                      <div className="ml-4">
+                                        <span className="command-badge text-xs">{lesson.command}</span>
                                       </div>
                                     </div>
                                   </div>
